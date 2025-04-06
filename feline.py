@@ -1,17 +1,37 @@
-import streamlit as st
+import os
+import gdown
+import numpy as np
+import tensorflow as tf
 from PIL import Image
-from model import load_model, predict_image
+import streamlit as st
 
-st.set_page_config(page_title="🐆 Big Cat Classifier 🦁")
-st.title("🐾 🐆 Big Cat Classifier 🦁")
+MODEL_PATH = "Cat_model.h5"
+DRIVE_FILE_ID = "1qsPJBrMfJWRixT0LSbIHMJcWVxDI4FcL"
+CLASS_LABELS = ['Cheetah', 'Jaguar', 'Leopard', 'Lion', 'Tiger']
 
-uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+@st.cache_resource
+def load_model():
+    if not os.path.exists(MODEL_PATH):
+        download_model_from_drive()
+    model = tf.keras.models.load_model(MODEL_PATH)
+    return model
 
-if uploaded_file:
-    image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+def download_model_from_drive():
+    url = f"https://drive.google.com/uc?id={DRIVE_FILE_ID}"
+    st.info("Downloading model from Google Drive...")
+    gdown.download(url, MODEL_PATH, quiet=False)
 
-    model = download_model("Cat_model.pth")
-    prediction = predict_image(model, image)
-    
-    st.success(f"Prediction: {prediction}")
+def preprocess_image(image: Image.Image):
+    image = image.convert("RGB")
+    image = image.resize((224, 224))
+    img_array = np.array(image) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
+    return img_array
+
+def predict_image(model, image: Image.Image):
+    processed = preprocess_image(image)
+    preds = model.predict(processed)
+    class_idx = np.argmax(preds)
+    confidence = float(np.max(preds))
+    label = CLASS_LABELS[class_idx]
+    return label, confidence
