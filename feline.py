@@ -25,9 +25,14 @@ def download_model():
         gdown.download(url, MODEL_PATH, quiet=False)
 
 def load_model():
-    download_model()
-    model = tf.keras.models.load_model(MODEL_PATH)
+    download_model()  # Ensure the model is downloaded
+    model = tf.keras.models.load_model("saved_ model.pb")
     return model
+
+# def load_model():
+#     download_model()
+#     model = tf.keras.models.load_model(MODEL_PATH)
+#     return model
 
 # def download_model():
 #     if not os.path.exists(MODEL_PATH):
