@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-from feline_II import load_model, predict_image
+from feline import load_model, predict_image
 
 st.set_page_config(page_title="Big Cat Classifier 🐆")
 st.title("Big Cat Image Classifier 🐅")
