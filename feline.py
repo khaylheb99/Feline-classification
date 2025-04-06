@@ -26,7 +26,7 @@ def download_model():
 
 def load_model():
     download_model()  # Ensure the model is downloaded
-    model = tf.keras.models.load_model("saved_ model.pb")
+    model = tf.keras.models.load_model("saved_model.pb")
     return model
 
 # def load_model():
