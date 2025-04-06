@@ -11,7 +11,7 @@ if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
-    model = load_model("Cat_model.pth")
+    model = download_model("Cat_model.pth")
     prediction = predict_image(model, image)
     
     st.success(f"Prediction: {prediction}")
