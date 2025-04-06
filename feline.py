@@ -9,7 +9,7 @@ MODEL_PATH = "Cat_model.h5"
 DRIVE_FILE_ID = "1qsPJBrMfJWRixT0LSbIHMJcWVxDI4FcL"
 CLASS_LABELS = ['Cheetah', 'Jaguar', 'Leopard', 'Lion', 'Tiger']
 
-@st.cache_resource
+# @st.cache_resource
 # import gdown
 # import os
 # import tensorflow as tf
@@ -17,15 +17,27 @@ CLASS_LABELS = ['Cheetah', 'Jaguar', 'Leopard', 'Lion', 'Tiger']
 # MODEL_PATH = "efficientnetv2_model.h5"
 # FILE_ID = "1qsPJBrMfJWRixT0LSbIHMJcWVxDI4FcL"
 
+@st.cache_resource(show_spinner=True)
 def download_model():
+    file_id = "1qsPJBrMfJWRixT0LSbIHMJcWVxDI4FcL"
     if not os.path.exists(MODEL_PATH):
-        url = f"https://drive.google.com/uc?id={FILE_ID}"
+        url = f"https://drive.google.com/uc?id={file_id}"
         gdown.download(url, MODEL_PATH, quiet=False)
 
 def load_model():
     download_model()
     model = tf.keras.models.load_model(MODEL_PATH)
     return model
+
+# def download_model():
+#     if not os.path.exists(MODEL_PATH):
+#         url = f"https://drive.google.com/uc?id={FILE_ID}"
+#         gdown.download(url, MODEL_PATH, quiet=False)
+
+# def load_model():
+#     download_model()
+#     model = tf.keras.models.load_model(MODEL_PATH)
+#     return model
 # def load_model():
 #     if not os.path.exists(MODEL_PATH):
 #         download_model_from_drive()
