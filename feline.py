@@ -49,17 +49,24 @@ def load_model():
 #     st.info("Downloading model from Google Drive...")
 #     gdown.download(url, MODEL_PATH, quiet=False)
 
-def preprocess_image(image: Image.Image):
-    image = image.convert("RGB")
+# def preprocess_image(image: Image.Image):
+#     image = image.convert("RGB")
+#     image = image.resize((224, 224))
+#     img_array = np.array(image) / 255.0
+#     img_array = np.expand_dims(img_array, axis=0)
+#     return img_array
+
+def predict_image(image, model):
+    class_labels = ['Cheetah', 'Jaguar', 'Leopard', 'Lion', 'Tiger']
+
+    # Preprocess
     image = image.resize((224, 224))
     img_array = np.array(image) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
-    return img_array
 
-def predict_image(model, image: Image.Image):
-    processed = preprocess_image(image)
-    preds = model.predict(processed)
-    class_idx = np.argmax(preds)
-    confidence = float(np.max(preds))
-    label = CLASS_LABELS[class_idx]
-    return label, confidence
+    # Predict
+    predictions = model.predict(img_array)
+    class_index = np.argmax(predictions)
+    confidence = np.max(predictions)
+
+    return class_labels[class_index], confidence
