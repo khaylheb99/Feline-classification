@@ -28,9 +28,9 @@ def download_model():
 #     download_model()  # Ensure the model is downloaded
 #     model = tf.keras.models.load_model("model")
 #     return model
-def load_model():
-    model = tf.keras.models.load_model("model")
-    return model
+# def load_model():
+#     model = tf.keras.models.load_model("model")
+#     return model
 
 # def load_model():
 #     download_model()  # Ensure the model is downloaded
@@ -47,10 +47,10 @@ def load_model():
 #         url = f"https://drive.google.com/uc?id={FILE_ID}"
 #         gdown.download(url, MODEL_PATH, quiet=False)
 
-# def load_model():
-#     download_model()
-#     model = tf.keras.models.load_model(MODEL_PATH)
-#     return model
+def load_model():
+    download_model()
+    model = tf.keras.models.load_model(MODEL_PATH)
+    return model
 # def load_model():
 #     if not os.path.exists(MODEL_PATH):
 #         download_model_from_drive()
