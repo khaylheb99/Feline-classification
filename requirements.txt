@@ -1,5 +1,5 @@
-streamlit==1.29.0
-tensorflow==2.12.0
-numpy==1.24.3
-Pillow==10.0.0
-opencv-python-headless==4.8.0.74
+streamlit>=1.29.0
+tensorflow>=2.15.0  # Newer version with Python 3.13 support
+numpy>=1.24.3
+Pillow>=10.0.0
+opencv-python-headless>=4.8.0
