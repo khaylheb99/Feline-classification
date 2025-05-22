@@ -1,0 +1,13 @@
+# .dockerignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.ipynb_checkpoints
+*.ipynb
+*.csv
+*.zip
+*.jpg
+*.png  # Exclude large datasets if not needed
+!Cat_model.keras 
